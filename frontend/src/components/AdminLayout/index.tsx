@@ -12,9 +12,6 @@ export function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <Container>
       <Header />
-      {/*    <Main>
-        {children}
-      </Main> */}
     </Container>
   );
 }
