@@ -6,7 +6,7 @@ export const HttpCatContainer = styled.div`
   margin: 0 auto;
   height: 100vh;
   display: flex;
-  align-items: stretch;
+  align-items: center;
 
   
     img{
@@ -24,9 +24,9 @@ export const HttpCatItem = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin: 20px;
+  margin: 0 auto;
   width: 100%;
-  max-width: 90%;
+  max-width: 70%;
   height: 80%;
   background-color: #9da5d1;
 

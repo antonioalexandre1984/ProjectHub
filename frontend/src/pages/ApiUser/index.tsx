@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { ClientsApi } from '../../components/Interfaces/ClientsApi';
 import { Container, CardContainer, Pagination, SearchBar } from './styles';
 import { Card } from './Card';
+import debounce from 'lodash/debounce';
+
 
 interface UsersListProps {
   onSelectUser: (user: ClientsApi) => void;
@@ -37,6 +39,10 @@ export function ApiUser({ onSelectUser }: UsersListProps) {
     loadUsers();
   }, [page]);
 
+  const handleSearch = useCallback(debounce((term: string) => {
+    setSearchTerm(term);
+  }, 50), []);
+
   const filteredUsers = users.filter(user => {
     return user.name.first.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.name.last.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -58,7 +64,7 @@ export function ApiUser({ onSelectUser }: UsersListProps) {
           type="text"
           placeholder="Pesquisar"
           value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
+          onChange={e => handleSearch(e.target.value)}
         />
       </SearchBar>
 
