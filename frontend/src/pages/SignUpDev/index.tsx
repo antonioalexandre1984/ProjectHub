@@ -46,7 +46,7 @@ export function SignUpDev() {
           onScreen: true
         }
       });
-      navigate('/sign-in/dev');
+      navigate('/');
       console.log(res);
     } catch {
       Store.addNotification({
@@ -68,7 +68,6 @@ export function SignUpDev() {
 
   return (
     <Container>
-      <Background />
       <Content>
         <Form onSubmit={handleSubmit}>
           <h1>Cadastro Dev</h1>
@@ -102,11 +101,11 @@ export function SignUpDev() {
             Register
           </Button>
           <FormActions>
-            <Link to="/">Esqueci minha senha</Link>
-            <Link to="/sign-up">Já tenho conta</Link>
+            <Link to="/">Já tenho conta</Link>
           </FormActions>
         </Form>
       </Content>
+      <Background />
     </Container>
   );
 }

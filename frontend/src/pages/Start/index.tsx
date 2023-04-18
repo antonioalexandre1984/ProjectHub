@@ -1,33 +1,33 @@
-import { Button } from '../../components/Button';
-import { Input } from '../../components/Input';
-import { Container, Content, Form, Background, FormActions } from './styles';
-import { FaLock, FaEnvelope } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
-import { useUser } from '../../components/hooks/useUser';
-import { CredentialsDev } from '../../components/Interfaces/CredentialsDev';
 import { useCallback, useEffect, useState } from 'react';
-import { Store } from 'react-notifications-component'
+import { useNavigate, Link } from 'react-router-dom';
+import { FaEnvelope, FaLock } from 'react-icons/fa';
+import { Store } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
+import { Container, Content, Form, FormActions, Background } from './styles';
 
+import { Input } from '../../components/Input';
+import { CredentialsDev } from '../../components/Interfaces/CredentialsDev';
+import { useUser } from '../../components/hooks/useUser';
+import { Button } from '../../components/Button';
 
 export function Start() {
-
-  const { user, signInDev } = useUser();
   const navigate = useNavigate();
+  const { user, signInDev } = useUser();
   const [model, setModel] = useState<CredentialsDev>({
     email: '',
     password: '',
   });
 
   const updateModel = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setModel({
-      ...model,
+    setModel(prevModel => ({
+      ...prevModel,
       [e.target.name]: e.target.value
-    });
-  }, [model]);
+    }));
+  }, []);
 
   const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('model', model);
+
     try {
       const res = await signInDev(model);
       Store.addNotification({
@@ -41,10 +41,11 @@ export function Start() {
         dismiss: {
           duration: 5000,
           onScreen: true
-        }
+        },
+
       });
       navigate('/dashboard');
-      console.log('res', res);
+
     } catch (err) {
       Store.addNotification({
         title: "Error!",
@@ -57,16 +58,22 @@ export function Start() {
         dismiss: {
           duration: 5000,
           onScreen: true
-        }
+        },
+
       });
       console.log(err);
     }
   }, [signInDev, model, navigate]);
 
   useEffect(() => {
+    return () => {
+      setModel({ email: '', password: '' });
+    };
+  }, []);
+
+  useEffect(() => {
     console.log('SignInDevPage', user);
   }, [user]);
-
   return (
     <Container>
       <Content>
@@ -91,7 +98,6 @@ export function Start() {
             Log In
           </Button>
           <FormActions>
-            <Link to="/sign">Forgot your password?</Link>
             <Link to="/sign-up/dev">Create an account</Link>
           </FormActions>
         </Form>

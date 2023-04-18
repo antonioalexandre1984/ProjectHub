@@ -2,56 +2,52 @@ import { useEffect, useState } from 'react';
 import { Container, Content, Button, ContentItem } from './styles';
 import { api } from '../../services/api';
 
+import dogImage from '../../assets/dog.jpg';
+
 export function DogApi() {
   const [imageUrl, setImageUrl] = useState('');
-  const [refresh, setRefresh] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   async function refreshImage() {
+    setIsLoading(true);
+    setError('');
     try {
       const res = await api.get('https://random.dog/woof.json')
       setImageUrl(res.data.url);
-      setRefresh(false);
     } catch (err) {
-      console.log('err', err);
+      setError('Something went wrong while fetching the image. Please try again later.');
     } finally {
-      setRefresh(false);
+      setIsLoading(false);
     }
   }
 
   async function handleRefresh() {
-    try {
-      const res = await api.get('https://random.dog/woof.json')
-      setImageUrl(res.data.url);
-      setRefresh(true);
-    } catch (err) {
-      console.log('err', err);
-    } finally {
-      setRefresh(false);
-    }
+    refreshImage();
   }
 
   useEffect(() => {
     refreshImage();
   }, []);
 
-  if (refresh) {
-    return (
-      <div className="load">
-        <img src="loading" alt="" />
-        <h1>Loading..</h1>
-      </div>
-    );
-  }
-
   return (
     <Container>
       <Content>
         <ContentItem>
           <h1>Random Dog</h1>
-          <img src={imageUrl} alt="Random dog" />
+          {isLoading ? (
+            <div className="load">
+              <h1>...Loading</h1>
+              <h1>Loading..</h1>
+            </div>
+          ) : (
+            <img src={imageUrl || dogImage} alt="Random dog" />
+          )}
+          {error && <p>{error}</p>}
           <Button onClick={handleRefresh}>Refresh</Button>
         </ContentItem>
       </Content>
     </Container>
   );
 }
+

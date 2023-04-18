@@ -7,7 +7,7 @@ interface HttpCatProps {
 }
 
 export function CatApi({ statusCode }: HttpCatProps) {
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState('https://http.cat/404.jpg');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRefresh = (e: ChangeEvent<HTMLInputElement>) => {

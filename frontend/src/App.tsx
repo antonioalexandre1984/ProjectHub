@@ -1,5 +1,4 @@
-import { BrowserRouter } from "react-router-dom"
-/* import { AuthContextProvider } from "./components/Contexts/AuthContext" */
+import { BrowserRouter, Route } from "react-router-dom"
 import { Router } from "./Router"
 import { GlobalStyle } from "./styles/global"
 import { ReactNotifications } from 'react-notifications-component'
@@ -9,22 +8,20 @@ import { AppLayout } from "./components/AppLayout"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from 'react-query/devtools'
 
-
-
 const queryClient = new QueryClient()
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthContextProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <AuthContextProvider>
+          <GlobalStyle />
           <ReactNotifications />
           <AppLayout>
             <Router />
           </AppLayout>
-          <GlobalStyle />
-        </BrowserRouter>
-      </AuthContextProvider >
+        </AuthContextProvider >
+      </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )

@@ -10,9 +10,9 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 body{
-    background:#0e1129;
+    background: #0e1129;
     color: #d4f5f5;
-    -webkiy-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
 }
 
 body,input-security,textarea,button{

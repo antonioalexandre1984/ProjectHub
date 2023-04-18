@@ -2,21 +2,21 @@ import styled from 'styled-components';
 import tech1 from '../../assets/tech1.png'
 
 export const Container = styled.div`
-width: 100%;
+ width: 100%;
 max-width: 80rem;
 margin: 0 auto;
 height: 100vh;
 display: flex;
-align-items: stretch;
+align-items: stretch; 
 `;
 
 export const Content = styled.div`
+width: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-width: 100%;
-max-width: 44rem;
+max-width: 704px;
 `;
 
 export const Form = styled.form`
@@ -37,10 +37,7 @@ h1{
 }
 `;
 
-export const Background = styled.div`
-flex: 1;
-background: url(${tech1}) no-repeat center;
-`;
+
 
 export const FormActions = styled.div`
 width: 100%;
@@ -56,9 +53,10 @@ a{
     text-decoration: none;
     transition: opacity 0.2s;
 }
-
-
 `;
-
+export const Background = styled.div`
+flex: 1;
+background: url(${tech1}) no-repeat center;
+`;
 
 

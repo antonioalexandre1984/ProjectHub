@@ -2,9 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { ClientsApi } from '../../components/Interfaces/ClientsApi';
 import { Container, CardContainer, Pagination, SearchBar } from './styles';
-import { Search } from './Search';
 import { Card } from './Card';
-import { Spinner } from '../../components/Spinner';
 
 interface UsersListProps {
   onSelectUser: (user: ClientsApi) => void;
@@ -29,7 +27,7 @@ export function ApiUser({ onSelectUser }: UsersListProps) {
           setLoading(false);
         });
     } catch (e) {
-      console.error(error);
+      console.error(e);
       setLoading(false);
       setError(true);
     }

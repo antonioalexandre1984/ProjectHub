@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useCallback, useState } from "react";
 import { api } from "../../services/api";
 import { CredentialsDev } from "../Interfaces/CredentialsDev";
+import { useNavigate } from 'react-router-dom';
 
 interface IUser {
   id: string;
@@ -29,6 +30,7 @@ interface AuthContextProviderProps {
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
+  const navigate = useNavigate();
   const [data, setData] = useState<IAuthState>(() => {
     const token = localStorage.getItem('@Dev:ProjectManagerToken');
     const user = localStorage.getItem('@Dev:ProjectManagerUser');
@@ -48,10 +50,11 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   }, []);
 
   const signOutDev = useCallback(() => {
-    localStorage.removeItem('@Dev:ProjectManagerToken',);
-    localStorage.removeItem('@Dev:ProjectManagerUser',);
+    localStorage.removeItem('@Dev:ProjectManagerToken');
+    localStorage.removeItem('@Dev:ProjectManagerUser');
     setData({} as IAuthState);
-  }, []);
+    navigate('/');
+  }, [navigate]);
 
 
   return (
